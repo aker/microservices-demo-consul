@@ -1,0 +1,27 @@
+dev-consul:
+  image: consul
+  net: host
+  expose:
+    - "8500"
+
+accounts:
+  image: run-mic
+  net: host
+  volumes:
+    - ~/.m2:/root/.m2
+    - ${PWD}:/root/demo
+  privileged: true
+  command: java -jar /root/demo/target/mircoservices-demo-consul-1.1.0.RELEASE.jar accounts
+  expose:
+    - "2222"
+
+web:
+  image: run-mic
+  net: host
+  volumes:
+    - ~/.m2:/root/.m2
+    - ${PWD}:/root/demo
+  privileged: true
+  command: java -jar /root/demo/target/mircoservices-demo-consul-1.1.0.RELEASE.jar web
+  expose:
+    - "3333"
